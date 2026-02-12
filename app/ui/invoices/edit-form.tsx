@@ -9,6 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
+import { updateInvoice } from '@/app/lib/action';
 
 export default function EditInvoiceForm({
   invoice,
@@ -17,8 +18,17 @@ export default function EditInvoiceForm({
   invoice: InvoiceForm;
   customers: CustomerField[];
 }) {
+
+  // prefill first parameter of updateInvoice, bind only work with first parameter
+  const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+
+  // same things with below:
+  // const updateInvoiceWithId = (formData: FormData) => {
+  //   return updateInvoice(invoice.id, formData);
+  // };
+
   return (
-    <form>
+    <form action={updateInvoiceWithId}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
